@@ -1,0 +1,70 @@
+#include <bits/stdc++.h>
+
+#include <dbg.h>
+
+using namespace std;
+
+using ll = long long;
+using ld = long double;
+
+template <typename T> inline void print(T val) { cout << val << '\n'; }
+
+template <typename Iterator> inline void print(Iterator begin, Iterator end) {
+  for (auto it = begin; it != end; it = next(it)) {
+    cout << *it << ' ';
+  }
+  cout << '\n';
+}
+
+void solve() {
+  int n;
+  cin >> n;
+
+  vector<int> w(n);
+
+  map<int, int> cnt;
+  for (auto &i : w) {
+    cin >> i;
+    cnt[i]++;
+  }
+
+  int ans = 0;
+
+  for (auto s = 2; s <= 200; ++s) {
+    dbg("hello");
+    int total = 0;
+    for (auto i = 1; i <= n; ++i) {
+      int j = s - i;
+
+      if (i == j) {
+        total += cnt[i] / 2;
+        continue;
+      }
+
+      total += min(cnt[i], cnt[j]);
+    }
+
+    ans = max(total, ans);
+  }
+
+  print(ans);
+}
+
+int main() {
+  ios_base::sync_with_stdio(false);
+  cin.tie(nullptr);
+
+#ifdef LOCAL
+  freopen("input.txt", "r", stdin);
+  freopen("output.txt", "w", stdout);
+#endif
+
+  int cases;
+  cin >> cases;
+
+  while (cases--) {
+    solve();
+  }
+
+  return 0;
+}
